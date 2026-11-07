@@ -4,109 +4,168 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>人工智能学院科技部实践平台</title>
+<link rel="icon" href="logo.png">
 <style>
 :root{
-  --ink:#16181D; --ink2:#3A3E47; --muted:#6E727B;
-  --paper:#F4F1EC; --line:rgba(22,24,29,.13);
+  --ink:#15171C; --ink2:#3B3F48; --muted:#71757E;
+  --paper:#F4F1EC; --paper2:#EDE8E1; --white:#fff;
+  --line:rgba(21,23,28,.12); --line2:rgba(21,23,28,.07);
   --blue:#1C2B62; --red:#993333; --gold:#B5984A;
-  --cn:"阿里巴巴普惠体 M","Microsoft YaHei",sans-serif;
+  --cn:"阿里巴巴普惠体 M","Alibaba PuHuiTi","Microsoft YaHei",sans-serif;
   --en:"Aileron","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.75 var(--cn)}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.75 var(--cn);
+  -webkit-font-smoothing:antialiased}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
+a{color:inherit;text-decoration:none}
 .hide{display:none!important}
 
-/* ---------- 登录 ---------- */
-.auth{min-height:100%;display:grid;place-items:center;padding:32px;
-  background:radial-gradient(120% 90% at 85% 0%, #2a3670 0%, #1C2B62 42%, #7d2a2a 100%)}
-.auth__card{width:min(420px,100%);background:#fff;padding:34px 32px 30px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
-.auth__brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}
-.auth__brand img{width:38px;height:38px}
-.auth__brand b{display:block;font-size:15px;letter-spacing:.06em;font-weight:500}
-.auth__brand span{display:block;font-family:var(--en);font-size:9.5px;letter-spacing:.2em;color:var(--muted)}
+/* ================= 登录 ================= */
+.auth{min-height:100%;display:grid;place-items:center;padding:32px 20px;
+  background:
+    radial-gradient(90% 70% at 88% 4%, #2b3772 0%, rgba(43,55,114,0) 60%),
+    radial-gradient(70% 60% at 8% 100%, #7d2a2a 0%, rgba(125,42,42,0) 55%),
+    linear-gradient(150deg,#1C2B62 0%,#151a33 52%,#6d2525 100%)}
+.auth__card{width:min(430px,100%);background:var(--white);padding:36px 34px 30px;
+  box-shadow:0 40px 90px rgba(0,0,0,.42), 0 2px 0 rgba(255,255,255,.06) inset;
+  animation:rise .6s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.auth__brand{display:flex;align-items:center;gap:13px;margin-bottom:24px}
+.auth__brand img{width:40px;height:40px;object-fit:contain}
+.auth__brand b{display:block;font-size:15px;letter-spacing:.05em;font-weight:500}
+.auth__brand span{display:block;font-family:var(--en);font-size:9.5px;letter-spacing:.22em;color:var(--muted);margin-top:2px}
 .tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:20px}
-.tabs button{flex:1;padding:9px 0;font-size:13px;color:var(--muted);border-bottom:2px solid transparent}
+.tabs button{flex:1;padding:10px 0;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;transition:.2s}
 .tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
 .field{margin-bottom:13px}
-.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;letter-spacing:.08em}
-.field input{width:100%;padding:10px 12px;border:1px solid var(--line);background:#fbfaf8;outline:0}
-.field input:focus{border-color:var(--ink);background:#fff}
-.field .tip{font-size:10.5px;color:var(--muted);margin-top:4px}
-.btn{width:100%;padding:11px 0;background:var(--ink);color:#fff;font-size:13px;letter-spacing:.08em;transition:.18s}
-.btn:hover{background:#000}
-.btn[disabled]{opacity:.5;cursor:not-allowed}
-.err{color:#B03A2E;font-size:12px;min-height:18px;margin-top:6px}
-.foot{font-size:10.5px;color:var(--muted);margin-top:18px;line-height:1.7}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;letter-spacing:.1em}
+.field input{width:100%;padding:11px 12px;border:1px solid var(--line);background:#FBFAF8;outline:0;transition:.2s}
+.field input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(28,43,98,.07)}
+.field .tip{font-size:10.5px;color:var(--muted);margin-top:5px;letter-spacing:.02em}
+.btn{width:100%;padding:12px 0;background:var(--ink);color:#fff;font-size:13px;letter-spacing:.12em;transition:.2s}
+.btn:hover{background:#000;transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.err{color:#B03A2E;font-size:12px;min-height:18px;margin-top:8px}
+.foot{font-size:10.5px;color:var(--muted);margin-top:20px;line-height:1.85;border-top:1px solid var(--line2);padding-top:14px}
 
-/* ---------- 应用 ---------- */
-.top{display:flex;align-items:center;gap:12px;padding:0 22px;height:56px;border-bottom:1px solid var(--line);
-  background:rgba(244,241,236,.94);position:sticky;top:0;z-index:20}
-.top img{width:26px;height:26px}
-.top b{font-weight:500;font-size:14px;letter-spacing:.04em}
-.top .sp{flex:1}
-.top nav{display:flex;gap:4px}
-.top nav button{padding:6px 11px;font-size:12.5px;color:var(--muted);border-radius:2px}
-.top nav button.on,.top nav button:hover{color:var(--ink);background:rgba(22,24,29,.06)}
-.who{font-size:12px;color:var(--muted);font-family:var(--en);letter-spacing:.06em}
+/* ================= 顶栏 ================= */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;height:58px;padding:0 26px;
+  background:rgba(244,241,236,.86);backdrop-filter:saturate(150%) blur(12px);
+  border-bottom:1px solid var(--line)}
+.top img{width:27px;height:27px;object-fit:contain}
+.top b{font-weight:500;font-size:14px;letter-spacing:.04em;white-space:nowrap}
+.top .sp{flex:1;min-width:8px}
+.top nav{display:flex;gap:2px}
+.top nav button{padding:7px 13px;font-size:12.5px;color:var(--muted);border-radius:2px;transition:.18s;letter-spacing:.02em}
+.top nav button.on{color:var(--ink);background:rgba(21,23,28,.07)}
+.top nav button:hover{color:var(--ink)}
+.user{display:flex;align-items:center;gap:8px;padding-left:8px}
+.avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(140deg,var(--blue),var(--red));
+  color:#fff;font-family:var(--en);font-size:11px;display:grid;place-items:center;letter-spacing:.05em}
+.who{font-size:12px;color:var(--ink2);font-family:var(--en);letter-spacing:.05em}
+.out{font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.out:hover{color:var(--ink)}
 
-.wrap{max-width:1080px;margin:0 auto;padding:38px 22px 70px}
-.hello{font-family:var(--en);font-size:10px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
-h1{font-size:30px;font-weight:400;letter-spacing:.02em;margin:8px 0 6px}
-.sub{color:var(--muted);font-size:13px;margin-bottom:30px}
+/* ================= 内容 ================= */
+.wrap{max-width:1080px;margin:0 auto;padding:46px 26px 90px}
+.hello{font-family:var(--en);font-size:10px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
+h1{font-size:clamp(26px,3.4vw,36px);font-weight:400;letter-spacing:.02em;margin:10px 0 8px;line-height:1.25}
+.sub{color:var(--muted);font-size:13.5px;margin:0 0 22px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px}
+.chipm{display:inline-flex;align-items:baseline;gap:6px;padding:5px 13px;border:1px solid var(--line);
+  border-radius:100px;font-size:11.5px;color:var(--ink2);background:rgba(255,255,255,.6)}
+.chipm b{font-family:var(--en);font-size:13px;color:var(--ink);font-weight:500}
 
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{position:relative;border:1px solid var(--line);background:#fff;padding:26px 24px 22px;overflow:hidden;
-  transition:transform .25s,box-shadow .25s;cursor:pointer}
-.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(22,24,29,.12)}
-.card img.cover{position:absolute;right:-30px;bottom:-30px;width:170px;opacity:.14;pointer-events:none}
-.card h2{font-size:19px;font-weight:400;margin:14px 0 6px}
-.card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.8;max-width:330px}
-.card .tag{font-family:var(--en);font-size:9.5px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
-.card .go{margin-top:20px;font-size:12px;letter-spacing:.1em;display:flex;align-items:center;gap:6px}
-.card--vi{border-top:3px solid var(--blue)}
-.card--poster{border-top:3px solid var(--red)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{position:relative;overflow:hidden;background:var(--white);border:1px solid var(--line);
+  padding:30px 28px 24px;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .3s}
+.card::before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:var(--blue)}
+.card--poster::before{background:var(--red)}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 54px rgba(21,23,28,.13);border-color:rgba(21,23,28,.2)}
+.card .num{font-family:var(--en);font-size:11px;letter-spacing:.24em;color:var(--gold)}
+.card h2{font-size:21px;font-weight:500;margin:12px 0 8px;letter-spacing:.01em}
+.card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.95;max-width:330px;position:relative;z-index:1}
+.card .go{margin-top:26px;display:flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.12em;color:var(--ink)}
+.card .go svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.card:hover .go svg{transform:translateX(4px)}
+.card img.mark{position:absolute;right:-26px;bottom:-30px;width:150px;opacity:.07;pointer-events:none;
+  filter:grayscale(1)}
 
-.panel{background:#fff;border:1px solid var(--line);padding:22px 24px}
-.panel h3{margin:0 0 4px;font-size:16px;font-weight:400}
-.panel .hint{font-size:12px;color:var(--muted);margin:0 0 18px}
+.panel{background:var(--white);border:1px solid var(--line);padding:28px 30px 26px;margin-top:24px}
+.panel__head{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.panel h3{margin:0;font-size:16px;font-weight:500;letter-spacing:.02em}
+.panel .hint{font-size:12px;color:var(--muted);margin:0 0 20px}
+
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:14px 34px}
+.rule{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line2)}
+.rule i{font-family:var(--en);font-style:normal;font-size:11px;color:var(--gold);letter-spacing:.1em;padding-top:2px}
+.rule div{font-size:12.5px;line-height:1.85;color:var(--ink2)}
+.rule b{font-weight:500;color:var(--ink);display:block;margin-bottom:2px}
+
+.site-foot{max-width:1080px;margin:0 auto;padding:26px;display:flex;gap:14px;align-items:center;
+  border-top:1px solid var(--line);color:var(--muted);font-size:11px;letter-spacing:.04em}
+.site-foot img{width:18px;opacity:.5}
+.site-foot .sp{flex:1}
+.site-foot span{font-family:var(--en);letter-spacing:.14em;white-space:nowrap}
+
+/* ================= 名单 ================= */
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-th,td{text-align:left;padding:9px 8px;border-bottom:1px solid rgba(22,24,29,.07)}
-th{font-weight:400;color:var(--muted);font-size:11px;letter-spacing:.08em}
-td.mono{font-family:var(--en);letter-spacing:.04em}
-.pill{display:inline-block;padding:1px 8px;border-radius:100px;font-size:10.5px;border:1px solid var(--line);color:var(--muted)}
-.pill.ok{color:#2E7D5B;border-color:rgba(46,125,91,.4)}
-.pill.admin{color:var(--red);border-color:rgba(153,51,51,.35)}
+th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line2)}
+th{font-weight:400;color:var(--muted);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  border-bottom:1px solid var(--line)}
+tbody tr:hover{background:#FBFAF8}
+td.mono{font-family:var(--en);letter-spacing:.06em}
+.pill{display:inline-block;padding:2px 9px;border-radius:100px;font-size:10.5px;border:1px solid var(--line);color:var(--muted)}
+.pill.ok{color:#2E7D5B;border-color:rgba(46,125,91,.35);background:rgba(46,125,91,.05)}
+.pill.admin{color:var(--red);border-color:rgba(153,51,51,.3);background:rgba(153,51,51,.05)}
+.pill.btnlike{cursor:pointer}
+.pill.btnlike:hover{border-color:var(--red);color:var(--red)}
 
-.form{display:grid;grid-template-columns:160px 1fr;gap:10px 14px;align-items:center;max-width:640px}
-.form label{font-size:12px;color:var(--muted)}
-.form input,.form select{padding:8px 10px;border:1px solid var(--line);background:#fbfaf8;outline:0;width:100%}
-.form input:focus,.form select:focus{border-color:var(--ink);background:#fff}
-.actions{display:flex;gap:10px;margin-top:18px}
-.actions .btn{width:auto;padding:9px 22px}
+/* ================= 设置 ================= */
+.form{display:grid;grid-template-columns:150px 1fr;gap:12px 18px;align-items:center;max-width:680px}
+.form label{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.form input,.form select{padding:9px 11px;border:1px solid var(--line);background:#FBFAF8;outline:0;width:100%;transition:.2s}
+.form input:focus,.form select:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(28,43,98,.06)}
+.form .note{grid-column:2;font-size:11px;color:var(--muted);margin-top:-6px}
+.actions{display:flex;gap:10px;margin-top:22px}
+.actions .btn{width:auto;padding:10px 24px}
 .actions .ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.msg{font-size:12px;margin-top:12px;min-height:18px}
+.actions .ghost:hover{background:#FBFAF8}
+.msg{font-size:12px;margin-top:14px;min-height:18px;color:var(--muted)}
 
-/* ---------- 全屏 iframe ---------- */
-.shade{position:fixed;inset:0;background:#0d0f14;z-index:50;display:flex;flex-direction:column}
-.shade__bar{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;background:#16181D;color:#fff}
+/* ================= 全屏 ================= */
+.shade{position:fixed;inset:0;background:#0d0f14;z-index:50;display:flex;flex-direction:column;
+  animation:fade .25s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.shade__bar{display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;background:#15171C;color:#fff}
 .shade__bar b{font-weight:400;font-size:13px;letter-spacing:.06em}
 .shade__bar .sp{flex:1}
-.shade__bar button{padding:5px 12px;border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px}
+.shade__bar button{padding:6px 13px;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;transition:.2s}
 .shade__bar button:hover{background:rgba(255,255,255,.12)}
 .shade iframe{flex:1;width:100%;border:0;background:#fff}
-@media (max-width:760px){
-  .cards{grid-template-columns:1fr}
+
+@media (max-width:820px){
+  .cards,.rules{grid-template-columns:1fr}
+  .top{padding:0 14px;gap:8px}
+  .top b{display:none}
+  .top nav button{padding:6px 9px;font-size:12px}
+  .wrap{padding:30px 16px 60px}
+  .panel{padding:22px 18px}
   .form{grid-template-columns:1fr}
-  h1{font-size:24px}
+  .form .note{grid-column:1}
+  .site-foot{flex-wrap:wrap;padding:18px 16px;gap:10px}
+  .site-foot span{font-size:10px;letter-spacing:.1em}
+  .hello{letter-spacing:.2em;font-size:9.5px}
 }
 </style>
 </head>
 <body>
 
-<!-- 登录 / 注册 -->
+<!-- ================= 登录 / 注册 ================= -->
 <section class="auth" id="authView">
   <div class="auth__card">
     <div class="auth__brand">
@@ -150,53 +209,67 @@ td.mono{font-family:var(--en);letter-spacing:.04em}
   </div>
 </section>
 
-<!-- 主应用 -->
+<!-- ================= 主应用 ================= -->
 <div id="appView" class="hide">
   <header class="top">
     <img src="logo.png" alt="">
-    <b>人工智能学院科技部 · 实践平台</b>
+    <b>科技部实践平台</b>
     <span class="sp"></span>
     <nav>
       <button data-nav="home" class="on">首页</button>
       <button data-nav="roster">成员名单</button>
       <button data-nav="settings">AI 设置</button>
     </nav>
-    <span class="who" id="who"></span>
-    <button class="who" id="logout" style="text-decoration:underline">退出</button>
+    <span class="user">
+      <span class="avatar" id="avatar">J</span>
+      <span class="who" id="who"></span>
+      <button class="out" id="logout">退出</button>
+    </span>
   </header>
 
   <!-- 首页 -->
   <section class="wrap" id="paneHome">
     <div class="hello">CUMTB · School of Artificial Intelligence</div>
     <h1>科技部实践平台</h1>
-    <div class="sub">视觉规范查询与海报制作，登录后即可使用。</div>
+    <p class="sub">视觉规范查询与海报制作，登录后即可使用。</p>
+
+    <div class="chips">
+      <span class="chipm"><b>7</b> 个篇章</span>
+      <span class="chipm"><b>46</b> 项规范</span>
+      <span class="chipm"><b>2</b> 个工具</span>
+      <span class="chipm"><b>1</b> 套标准色</span>
+    </div>
 
     <div class="cards">
-      <div class="card card--vi" data-open="vi">
-        <div class="tag">Visual Identity</div>
+      <div class="card" data-open="vi">
+        <div class="num">01 — VISUAL IDENTITY</div>
         <h2>视觉形象识别系统</h2>
-        <p>7 个篇章、46 项规范的完整手册，支持检索、筛选与图版查看，并提供 PDF 与素材下载。</p>
-        <div class="go">进入 ↗</div>
-        <img class="cover" src="logo.png" alt="">
+        <p>基础形象与应用系统两部分的完整手册，支持检索、篇章筛选、图版放大，并提供 PDF 与素材包下载。</p>
+        <div class="go">进入
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </div>
+        <img class="mark" src="poster/assets/logos/院徽.png" alt="">
       </div>
 
       <div class="card card--poster" data-open="poster">
-        <div class="tag">Poster Studio</div>
+        <div class="num">02 — POSTER STUDIO</div>
         <h2>海报工厂</h2>
         <p>图层式编辑器，内置院徽与标准色，自动检查安全空间；接生图 AI，可生成图标、背景与艺术字。</p>
-        <div class="go">进入 ↗</div>
-        <img class="cover" src="logo.png" alt="" style="opacity:.16">
+        <div class="go">进入
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </div>
+        <img class="mark" src="poster/assets/logos/院徽.png" alt="">
       </div>
     </div>
 
-    <div class="panel" style="margin-top:18px">
-      <h3>使用须知</h3>
-      <p class="hint">规范手册中的标志、标准色与版式，是学院对外物料的统一依据；海报工厂已按手册内置检查规则。</p>
-      <div style="font-size:12.5px;color:var(--ink2);line-height:2">
-        · 标志四周留白 ≥ 标志高度的 1/5，印刷品直径 ≥ 9 mm<br>
-        · 只用标准色：智能蓝 #1C2B62、矿大红 #993333、辅助金 #B5984A<br>
-        · 深色底使用反白标志；标志保持实色，透明度不低于 90%<br>
-        · AI 生成的图标与背景，正式使用前请人工复核
+    <div class="panel">
+      <div class="panel__head"><h3>使用规范</h3></div>
+      <p class="hint">手册中的标志、标准色与版式，是学院对外物料的统一依据；海报工厂已按此内置检查规则。</p>
+      <div class="rules">
+        <div class="rule"><i>01</i><div><b>标志留白</b>四周留白 ≥ 标志高度的 1/5，印刷品直径 ≥ 9 mm</div></div>
+        <div class="rule"><i>02</i><div><b>标准色</b>智能蓝 #1C2B62 · 矿大红 #993333 · 辅助金 #B5984A</div></div>
+        <div class="rule"><i>03</i><div><b>底色与实色</b>深色底使用反白标志；标志保持实色，透明度不低于 90%</div></div>
+        <div class="rule"><i>04</i><div><b>AI 产出</b>生成的图标与背景，正式使用前请人工复核</div></div>
       </div>
     </div>
   </section>
@@ -205,7 +278,7 @@ td.mono{font-family:var(--en);letter-spacing:.04em}
   <section class="wrap hide" id="paneRoster">
     <div class="hello">Members</div>
     <h1>成员名单</h1>
-    <div class="sub">共 <b id="rosterCount">0</b> 人。第一位注册者为管理员。</div>
+    <p class="sub">共 <b id="rosterCount">0</b> 人，第一位注册者为管理员。</p>
     <div class="panel">
       <table>
         <thead><tr><th>学号</th><th>姓名</th><th>身份</th><th>AI 密钥</th><th>注册时间</th><th></th></tr></thead>
@@ -218,11 +291,12 @@ td.mono{font-family:var(--en);letter-spacing:.04em}
   <section class="wrap hide" id="paneSettings">
     <div class="hello">AI Provider</div>
     <h1>AI 设置</h1>
-    <div class="sub">这里的配置只属于你自己，其他人看不到，也不会互相影响。</div>
+    <p class="sub">这里的配置只属于你自己，其他人看不到，也不会互相影响。</p>
     <div class="panel">
       <div class="form">
         <label>服务商</label>
         <select id="sProvider"></select>
+        <div class="note" id="sHint"></div>
         <label>API Key</label>
         <input id="sKey" type="password" placeholder="粘贴你的 Key">
         <label>图像模型</label>
@@ -239,9 +313,16 @@ td.mono{font-family:var(--en);letter-spacing:.04em}
       <div class="msg" id="sMsg"></div>
     </div>
   </section>
+
+  <footer class="site-foot">
+    <img src="logo.png" alt="">
+    <span>CUMTB · SAI · 科技部</span>
+    <span class="sp"></span>
+    <span id="footVer">PRACTICE PLATFORM</span>
+  </footer>
 </div>
 
-<!-- 全屏打开 -->
+<!-- 全屏窗口 -->
 <div class="shade hide" id="shade">
   <div class="shade__bar">
     <b id="shadeTitle"></b>
@@ -299,11 +380,8 @@ $('submitBtn').onclick = async () => {
   const btn = $('submitBtn');
   btn.disabled = true;
   try {
-    if (MODE === 'reg'){
-      await api('/api/register', {sid, password: pwd, name: $('name').value.trim()});
-    } else {
-      await api('/api/login', {sid, password: pwd});
-    }
+    if (MODE === 'reg') await api('/api/register', {sid, password: pwd, name: $('name').value.trim()});
+    else await api('/api/login', {sid, password: pwd});
     await boot();
   } catch(e){
     $('authErr').textContent = e.message;
@@ -356,8 +434,8 @@ async function loadRoster(){
         '<td>' + (u.name || '—') + '</td>' +
         '<td>' + (u.role === 'admin' ? '<span class="pill admin">管理员</span>' : '<span class="pill">成员</span>') + '</td>' +
         '<td>' + (u.hasKey ? '<span class="pill ok">已配置</span>' : '<span class="pill">未配置</span>') + '</td>' +
-        '<td class="mono">' + ds + '</td>' +
-        '<td>' + (d.isAdmin && u.sid !== d.me ? '<button class="pill" data-del="' + u.sid + '">移除</button>' : '') + '</td>' +
+        '<td class="mono" style="color:var(--muted)">' + ds + '</td>' +
+        '<td>' + (d.isAdmin && u.sid !== d.me ? '<span class="pill btnlike" data-del="' + u.sid + '">移除</span>' : '') + '</td>' +
       '</tr>';
     }).join('');
     document.querySelectorAll('[data-del]').forEach(b => b.onclick = async () => {
@@ -384,13 +462,14 @@ async function loadSettings(){
     $('sBase').value = c.baseUrl === (PROVIDERS[c.provider] || {}).base ? '' : (c.baseUrl || '');
     $('sKey').value = '';
     $('sKey').placeholder = c.hasKey ? ('已保存：' + c.keyMask) : '粘贴你的 API Key';
+    $('sHint').textContent = (PROVIDERS[c.provider] || {}).hint || '';
     $('sMsg').textContent = c.hasKey ? '当前账号已配置密钥' : '还没有配置；不配置的话生图与评审不可用';
     $('sMsg').style.color = c.hasKey ? '#2E7D5B' : 'var(--muted)';
   } catch(e){ $('sMsg').textContent = e.message; }
 }
 $('sProvider').onchange = () => {
   const p = PROVIDERS[$('sProvider').value];
-  if (p){ $('sImg').value = p.img || ''; $('sVis').value = p.vis || ''; $('sMsg').textContent = p.hint || ''; }
+  if (p){ $('sImg').value = p.img || ''; $('sVis').value = p.vis || ''; $('sHint').textContent = p.hint || ''; }
 };
 $('sSave').onclick = async () => {
   try {
@@ -426,7 +505,9 @@ async function boot(){
   }
   $('authView').classList.add('hide');
   $('appView').classList.remove('hide');
-  $('who').textContent = ME.sid + (ME.name && ME.name !== ME.sid ? ' · ' + ME.name : '');
+  const label = (ME.name && ME.name !== ME.sid) ? ME.name : ME.sid;
+  $('who').textContent = label;
+  $('avatar').textContent = (label[0] || '?').toUpperCase();
   showPane('home');
 }
 $('logout').onclick = async () => {
