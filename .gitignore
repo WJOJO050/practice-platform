@@ -1,0 +1,6 @@
+data/
+node_modules/
+config.json
+port.txt
+*.log
+.DS_Store

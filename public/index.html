@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人工智能学院科技部实践平台</title>
+<style>
+:root{
+  --ink:#16181D; --ink2:#3A3E47; --muted:#6E727B;
+  --paper:#F4F1EC; --line:rgba(22,24,29,.13);
+  --blue:#1C2B62; --red:#993333; --gold:#B5984A;
+  --cn:"阿里巴巴普惠体 M","Microsoft YaHei",sans-serif;
+  --en:"Aileron","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.75 var(--cn)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.hide{display:none!important}
+
+/* ---------- 登录 ---------- */
+.auth{min-height:100%;display:grid;place-items:center;padding:32px;
+  background:radial-gradient(120% 90% at 85% 0%, #2a3670 0%, #1C2B62 42%, #7d2a2a 100%)}
+.auth__card{width:min(420px,100%);background:#fff;padding:34px 32px 30px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.auth__brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.auth__brand img{width:38px;height:38px}
+.auth__brand b{display:block;font-size:15px;letter-spacing:.06em;font-weight:500}
+.auth__brand span{display:block;font-family:var(--en);font-size:9.5px;letter-spacing:.2em;color:var(--muted)}
+.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:20px}
+.tabs button{flex:1;padding:9px 0;font-size:13px;color:var(--muted);border-bottom:2px solid transparent}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;letter-spacing:.08em}
+.field input{width:100%;padding:10px 12px;border:1px solid var(--line);background:#fbfaf8;outline:0}
+.field input:focus{border-color:var(--ink);background:#fff}
+.field .tip{font-size:10.5px;color:var(--muted);margin-top:4px}
+.btn{width:100%;padding:11px 0;background:var(--ink);color:#fff;font-size:13px;letter-spacing:.08em;transition:.18s}
+.btn:hover{background:#000}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.err{color:#B03A2E;font-size:12px;min-height:18px;margin-top:6px}
+.foot{font-size:10.5px;color:var(--muted);margin-top:18px;line-height:1.7}
+
+/* ---------- 应用 ---------- */
+.top{display:flex;align-items:center;gap:12px;padding:0 22px;height:56px;border-bottom:1px solid var(--line);
+  background:rgba(244,241,236,.94);position:sticky;top:0;z-index:20}
+.top img{width:26px;height:26px}
+.top b{font-weight:500;font-size:14px;letter-spacing:.04em}
+.top .sp{flex:1}
+.top nav{display:flex;gap:4px}
+.top nav button{padding:6px 11px;font-size:12.5px;color:var(--muted);border-radius:2px}
+.top nav button.on,.top nav button:hover{color:var(--ink);background:rgba(22,24,29,.06)}
+.who{font-size:12px;color:var(--muted);font-family:var(--en);letter-spacing:.06em}
+
+.wrap{max-width:1080px;margin:0 auto;padding:38px 22px 70px}
+.hello{font-family:var(--en);font-size:10px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
+h1{font-size:30px;font-weight:400;letter-spacing:.02em;margin:8px 0 6px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:30px}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{position:relative;border:1px solid var(--line);background:#fff;padding:26px 24px 22px;overflow:hidden;
+  transition:transform .25s,box-shadow .25s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(22,24,29,.12)}
+.card img.cover{position:absolute;right:-30px;bottom:-30px;width:170px;opacity:.14;pointer-events:none}
+.card h2{font-size:19px;font-weight:400;margin:14px 0 6px}
+.card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.8;max-width:330px}
+.card .tag{font-family:var(--en);font-size:9.5px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+.card .go{margin-top:20px;font-size:12px;letter-spacing:.1em;display:flex;align-items:center;gap:6px}
+.card--vi{border-top:3px solid var(--blue)}
+.card--poster{border-top:3px solid var(--red)}
+
+.panel{background:#fff;border:1px solid var(--line);padding:22px 24px}
+.panel h3{margin:0 0 4px;font-size:16px;font-weight:400}
+.panel .hint{font-size:12px;color:var(--muted);margin:0 0 18px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid rgba(22,24,29,.07)}
+th{font-weight:400;color:var(--muted);font-size:11px;letter-spacing:.08em}
+td.mono{font-family:var(--en);letter-spacing:.04em}
+.pill{display:inline-block;padding:1px 8px;border-radius:100px;font-size:10.5px;border:1px solid var(--line);color:var(--muted)}
+.pill.ok{color:#2E7D5B;border-color:rgba(46,125,91,.4)}
+.pill.admin{color:var(--red);border-color:rgba(153,51,51,.35)}
+
+.form{display:grid;grid-template-columns:160px 1fr;gap:10px 14px;align-items:center;max-width:640px}
+.form label{font-size:12px;color:var(--muted)}
+.form input,.form select{padding:8px 10px;border:1px solid var(--line);background:#fbfaf8;outline:0;width:100%}
+.form input:focus,.form select:focus{border-color:var(--ink);background:#fff}
+.actions{display:flex;gap:10px;margin-top:18px}
+.actions .btn{width:auto;padding:9px 22px}
+.actions .ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.msg{font-size:12px;margin-top:12px;min-height:18px}
+
+/* ---------- 全屏 iframe ---------- */
+.shade{position:fixed;inset:0;background:#0d0f14;z-index:50;display:flex;flex-direction:column}
+.shade__bar{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;background:#16181D;color:#fff}
+.shade__bar b{font-weight:400;font-size:13px;letter-spacing:.06em}
+.shade__bar .sp{flex:1}
+.shade__bar button{padding:5px 12px;border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px}
+.shade__bar button:hover{background:rgba(255,255,255,.12)}
+.shade iframe{flex:1;width:100%;border:0;background:#fff}
+@media (max-width:760px){
+  .cards{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- 登录 / 注册 -->
+<section class="auth" id="authView">
+  <div class="auth__card">
+    <div class="auth__brand">
+      <img src="logo.png" alt="">
+      <div>
+        <b>人工智能学院科技部</b>
+        <span>PRACTICE PLATFORM</span>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button data-tab="login" class="on">登录</button>
+      <button data-tab="reg">注册</button>
+    </div>
+
+    <div class="field">
+      <label>学号</label>
+      <input id="sid" type="text" inputmode="numeric" maxlength="10" placeholder="10 位学号，如 2310402120" autocomplete="username">
+      <div class="tip" id="sidTip">由 10 位数字组成</div>
+    </div>
+    <div class="field" id="nameField" style="display:none">
+      <label>姓名（选填）</label>
+      <input id="name" type="text" maxlength="20" placeholder="用于名单显示">
+    </div>
+    <div class="field">
+      <label>密码</label>
+      <input id="pwd" type="password" placeholder="至少 6 位" autocomplete="current-password">
+    </div>
+    <div class="field" id="pwd2Field" style="display:none">
+      <label>确认密码</label>
+      <input id="pwd2" type="password" placeholder="再输一次">
+    </div>
+
+    <button class="btn" id="submitBtn">登 录</button>
+    <div class="err" id="authErr"></div>
+
+    <div class="foot">
+      首次使用请先「注册」，学号即账号；第一个注册的账号为管理员。<br>
+      平台仅在学院内部使用，请勿外传账号。
+    </div>
+  </div>
+</section>
+
+<!-- 主应用 -->
+<div id="appView" class="hide">
+  <header class="top">
+    <img src="logo.png" alt="">
+    <b>人工智能学院科技部 · 实践平台</b>
+    <span class="sp"></span>
+    <nav>
+      <button data-nav="home" class="on">首页</button>
+      <button data-nav="roster">成员名单</button>
+      <button data-nav="settings">AI 设置</button>
+    </nav>
+    <span class="who" id="who"></span>
+    <button class="who" id="logout" style="text-decoration:underline">退出</button>
+  </header>
+
+  <!-- 首页 -->
+  <section class="wrap" id="paneHome">
+    <div class="hello">CUMTB · School of Artificial Intelligence</div>
+    <h1>科技部实践平台</h1>
+    <div class="sub">视觉规范查询与海报制作，登录后即可使用。</div>
+
+    <div class="cards">
+      <div class="card card--vi" data-open="vi">
+        <div class="tag">Visual Identity</div>
+        <h2>视觉形象识别系统</h2>
+        <p>7 个篇章、46 项规范的完整手册，支持检索、筛选与图版查看，并提供 PDF 与素材下载。</p>
+        <div class="go">进入 ↗</div>
+        <img class="cover" src="logo.png" alt="">
+      </div>
+
+      <div class="card card--poster" data-open="poster">
+        <div class="tag">Poster Studio</div>
+        <h2>海报工厂</h2>
+        <p>图层式编辑器，内置院徽与标准色，自动检查安全空间；接生图 AI，可生成图标、背景与艺术字。</p>
+        <div class="go">进入 ↗</div>
+        <img class="cover" src="logo.png" alt="" style="opacity:.16">
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:18px">
+      <h3>使用须知</h3>
+      <p class="hint">规范手册中的标志、标准色与版式，是学院对外物料的统一依据；海报工厂已按手册内置检查规则。</p>
+      <div style="font-size:12.5px;color:var(--ink2);line-height:2">
+        · 标志四周留白 ≥ 标志高度的 1/5，印刷品直径 ≥ 9 mm<br>
+        · 只用标准色：智能蓝 #1C2B62、矿大红 #993333、辅助金 #B5984A<br>
+        · 深色底使用反白标志；标志保持实色，透明度不低于 90%<br>
+        · AI 生成的图标与背景，正式使用前请人工复核
+      </div>
+    </div>
+  </section>
+
+  <!-- 名单 -->
+  <section class="wrap hide" id="paneRoster">
+    <div class="hello">Members</div>
+    <h1>成员名单</h1>
+    <div class="sub">共 <b id="rosterCount">0</b> 人。第一位注册者为管理员。</div>
+    <div class="panel">
+      <table>
+        <thead><tr><th>学号</th><th>姓名</th><th>身份</th><th>AI 密钥</th><th>注册时间</th><th></th></tr></thead>
+        <tbody id="rosterBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- AI 设置 -->
+  <section class="wrap hide" id="paneSettings">
+    <div class="hello">AI Provider</div>
+    <h1>AI 设置</h1>
+    <div class="sub">这里的配置只属于你自己，其他人看不到，也不会互相影响。</div>
+    <div class="panel">
+      <div class="form">
+        <label>服务商</label>
+        <select id="sProvider"></select>
+        <label>API Key</label>
+        <input id="sKey" type="password" placeholder="粘贴你的 Key">
+        <label>图像模型</label>
+        <input id="sImg" type="text">
+        <label>视觉模型</label>
+        <input id="sVis" type="text">
+        <label>Base URL</label>
+        <input id="sBase" type="text" placeholder="自定义时填写，留空用默认">
+      </div>
+      <div class="actions">
+        <button class="btn" id="sSave">保存</button>
+        <button class="btn ghost" id="sTest">测试连接</button>
+      </div>
+      <div class="msg" id="sMsg"></div>
+    </div>
+  </section>
+</div>
+
+<!-- 全屏打开 -->
+<div class="shade hide" id="shade">
+  <div class="shade__bar">
+    <b id="shadeTitle"></b>
+    <span class="sp"></span>
+    <button id="shadeReload">刷新</button>
+    <button id="shadeBlank">新窗口打开</button>
+    <button id="shadeClose">返回平台</button>
+  </div>
+  <iframe id="shadeFrame" src="about:blank"></iframe>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let ME = null;
+let MODE = 'login';
+
+/* ---------------- 登录 / 注册 ---------------- */
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+  MODE = b.dataset.tab;
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b));
+  $('nameField').style.display = MODE === 'reg' ? 'block' : 'none';
+  $('pwd2Field').style.display = MODE === 'reg' ? 'block' : 'none';
+  $('submitBtn').textContent = MODE === 'reg' ? '注 册' : '登 录';
+  $('authErr').textContent = '';
+});
+
+$('sid').addEventListener('input', e => {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+  const ok = /^\d{10}$/.test(e.target.value);
+  $('sidTip').textContent = e.target.value.length === 0 ? '由 10 位数字组成'
+    : (ok ? '✓ 学号格式正确' : '还需要 ' + (10 - e.target.value.length) + ' 位');
+  $('sidTip').style.color = ok ? '#2E7D5B' : 'var(--muted)';
+});
+
+async function api(path, body){
+  const opt = body === undefined ? {} : {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body)
+  };
+  const r = await fetch(path, Object.assign({cache:'no-store'}, opt));
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+  return j;
+}
+
+$('submitBtn').onclick = async () => {
+  const sid = $('sid').value.trim();
+  const pwd = $('pwd').value;
+  $('authErr').textContent = '';
+  if (!/^\d{10}$/.test(sid)) return $('authErr').textContent = '学号需要 10 位数字';
+  if (pwd.length < 6) return $('authErr').textContent = '密码至少 6 位';
+  if (MODE === 'reg' && pwd !== $('pwd2').value) return $('authErr').textContent = '两次密码不一致';
+
+  const btn = $('submitBtn');
+  btn.disabled = true;
+  try {
+    if (MODE === 'reg'){
+      await api('/api/register', {sid, password: pwd, name: $('name').value.trim()});
+    } else {
+      await api('/api/login', {sid, password: pwd});
+    }
+    await boot();
+  } catch(e){
+    $('authErr').textContent = e.message;
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+$('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') $('submitBtn').click(); });
+$('pwd2').addEventListener('keydown', e => { if (e.key === 'Enter') $('submitBtn').click(); });
+
+/* ---------------- 应用 ---------------- */
+function showPane(name){
+  ['paneHome','paneRoster','paneSettings'].forEach(p => $(p).classList.add('hide'));
+  $('pane' + name[0].toUpperCase() + name.slice(1)).classList.remove('hide');
+  document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('on', b.dataset.nav === name));
+}
+document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => {
+  showPane(b.dataset.nav);
+  if (b.dataset.nav === 'roster') loadRoster();
+  if (b.dataset.nav === 'settings') loadSettings();
+});
+
+document.querySelectorAll('[data-open]').forEach(c => c.onclick = () => openShade(c.dataset.open));
+
+function openShade(kind){
+  const map = {
+    vi: ['视觉形象识别系统', 'vi/index.html'],
+    poster: ['海报工厂', 'poster/workbench/index.html']
+  };
+  const [title, src] = map[kind];
+  $('shadeTitle').textContent = title;
+  $('shadeFrame').src = src + '?t=' + Date.now();
+  $('shade').classList.remove('hide');
+  $('shadeBlank').onclick = () => window.open(src, '_blank');
+}
+$('shadeClose').onclick = () => { $('shade').classList.add('hide'); $('shadeFrame').src = 'about:blank'; };
+$('shadeReload').onclick = () => { const s = $('shadeFrame').src; $('shadeFrame').src = s.split('?')[0] + '?t=' + Date.now(); };
+
+/* ---------------- 名单 ---------------- */
+async function loadRoster(){
+  try {
+    const d = await api('/api/roster');
+    $('rosterCount').textContent = d.users.length;
+    $('rosterBody').innerHTML = d.users.map(u => {
+      const date = new Date(u.created * 1000);
+      const ds = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0');
+      return '<tr>' +
+        '<td class="mono">' + u.sid + (u.sid === d.me ? ' <span class="pill">你</span>' : '') + '</td>' +
+        '<td>' + (u.name || '—') + '</td>' +
+        '<td>' + (u.role === 'admin' ? '<span class="pill admin">管理员</span>' : '<span class="pill">成员</span>') + '</td>' +
+        '<td>' + (u.hasKey ? '<span class="pill ok">已配置</span>' : '<span class="pill">未配置</span>') + '</td>' +
+        '<td class="mono">' + ds + '</td>' +
+        '<td>' + (d.isAdmin && u.sid !== d.me ? '<button class="pill" data-del="' + u.sid + '">移除</button>' : '') + '</td>' +
+      '</tr>';
+    }).join('');
+    document.querySelectorAll('[data-del]').forEach(b => b.onclick = async () => {
+      if (!confirm('确定移除 ' + b.dataset.del + ' ？')) return;
+      try { await api('/api/roster/delete', {sid: b.dataset.del}); loadRoster(); }
+      catch(e){ alert(e.message); }
+    });
+  } catch(e){
+    $('rosterBody').innerHTML = '<tr><td colspan="6">' + e.message + '</td></tr>';
+  }
+}
+
+/* ---------------- AI 设置 ---------------- */
+let PROVIDERS = {};
+async function loadSettings(){
+  try {
+    const c = await api('/api/config');
+    PROVIDERS = c.providers;
+    $('sProvider').innerHTML = Object.entries(PROVIDERS).map(([k,v]) =>
+      '<option value="' + k + '">' + v.label + '</option>').join('');
+    $('sProvider').value = c.provider;
+    $('sImg').value = c.imageModel || '';
+    $('sVis').value = c.visionModel || '';
+    $('sBase').value = c.baseUrl === (PROVIDERS[c.provider] || {}).base ? '' : (c.baseUrl || '');
+    $('sKey').value = '';
+    $('sKey').placeholder = c.hasKey ? ('已保存：' + c.keyMask) : '粘贴你的 API Key';
+    $('sMsg').textContent = c.hasKey ? '当前账号已配置密钥' : '还没有配置；不配置的话生图与评审不可用';
+    $('sMsg').style.color = c.hasKey ? '#2E7D5B' : 'var(--muted)';
+  } catch(e){ $('sMsg').textContent = e.message; }
+}
+$('sProvider').onchange = () => {
+  const p = PROVIDERS[$('sProvider').value];
+  if (p){ $('sImg').value = p.img || ''; $('sVis').value = p.vis || ''; $('sMsg').textContent = p.hint || ''; }
+};
+$('sSave').onclick = async () => {
+  try {
+    await api('/api/key', {
+      provider: $('sProvider').value,
+      apiKey: $('sKey').value || undefined,
+      imageModel: $('sImg').value,
+      visionModel: $('sVis').value,
+      baseUrl: $('sBase').value
+    });
+    $('sMsg').textContent = '已保存';
+    $('sMsg').style.color = '#2E7D5B';
+    loadSettings();
+  } catch(e){ $('sMsg').textContent = '保存失败：' + e.message; $('sMsg').style.color = '#B03A2E'; }
+};
+$('sTest').onclick = async () => {
+  $('sMsg').textContent = '测试中…';
+  try {
+    const r = await api('/api/config');
+    $('sMsg').textContent = r.hasKey ? '✓ 密钥已保存，可正常调用' : '× 还没有填写密钥';
+    $('sMsg').style.color = r.hasKey ? '#2E7D5B' : '#B03A2E';
+  } catch(e){ $('sMsg').textContent = '× ' + e.message; }
+};
+
+/* ---------------- 启动 ---------------- */
+async function boot(){
+  try {
+    ME = await api('/api/me');
+  } catch(e){
+    $('authView').classList.remove('hide');
+    $('appView').classList.add('hide');
+    return;
+  }
+  $('authView').classList.add('hide');
+  $('appView').classList.remove('hide');
+  $('who').textContent = ME.sid + (ME.name && ME.name !== ME.sid ? ' · ' + ME.name : '');
+  showPane('home');
+}
+$('logout').onclick = async () => {
+  try { await api('/api/logout', {}); } catch(e){}
+  location.reload();
+};
+boot();
+</script>
+</body>
+</html>

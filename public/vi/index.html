@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>视觉形象识别系统 · 中国矿业大学（北京）人工智能学院</title>
+<meta name="description" content="中国矿业大学（北京）人工智能学院视觉形象识别系统：标志、字体、色彩、组合规范与办公、多媒体应用，共 7 个篇章 46 项规范。">
+<meta name="theme-color" content="#1C2B62">
+<link rel="icon" href="assets/img/brand/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="topbar" id="topbar">
+  <a class="topbar__brand" href="#top">
+    <img src="assets/img/brand/emblem.webp" alt="" width="34" height="34">
+    <span>
+      <b>视觉形象识别系统</b>
+      <i>School of Artificial Intelligence</i>
+    </span>
+  </a>
+  <nav class="topbar__nav" aria-label="主导航">
+    <a href="#chapters">篇章</a>
+    <a href="#catalog">条目</a>
+    <a href="#palette">色彩</a>
+    <a href="#downloads">下载</a>
+    <a href="#about">关于</a>
+  </nav>
+  <button class="topbar__search" id="searchJump" type="button" aria-label="检索条目">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+    <span>检索</span>
+    <kbd>/</kbd>
+  </button>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <img class="hero__mark" src="assets/img/brand/emblem.webp" alt="" aria-hidden="true">
+    <div class="hero__inner">
+      <p class="hero__kicker">中国矿业大学（北京） · 人工智能学院</p>
+      <h1 class="hero__title">
+        <span>视觉形象</span>
+        <span>识别系统</span>
+      </h1>
+      <p class="hero__en">Visual Identity System &nbsp;/&nbsp; 2024</p>
+      <p class="hero__lead">从校徽到名片，从一枚印章到一面背景板。<br>这里收录学院的每一次露出，及其应当遵守的尺度。</p>
+      <div class="hero__meta">
+        <span><b>7</b> 个篇章</span>
+        <span><b>46</b> 项规范</span>
+        <span>版本 202401</span>
+      </div>
+    </div>
+    <a class="hero__cue" href="#chapters">
+      <span>向下浏览</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14M6 12l6 6 6-6"></path></svg>
+    </a>
+  </section>
+
+  <section class="section chapters" id="chapters">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Chapters</p>
+        <h2>七个篇章</h2>
+      </div>
+      <p class="section__note">基础形象系统（A）与应用系统（B）两部分。点击进入对应篇章。</p>
+    </div>
+    <div class="chapter-grid" id="chapterGrid"></div>
+  </section>
+
+  <section class="section catalog" id="catalog">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Catalogue</p>
+        <h2>全部条目</h2>
+      </div>
+      <p class="section__note">按编号排序，点击任意条目查看图版、信息释义与注意事项。</p>
+    </div>
+
+    <div class="toolbar" id="toolbar">
+      <div class="chips" id="chips" role="tablist" aria-label="篇章筛选"></div>
+      <div class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+        <input id="search" type="search" placeholder="检索：院徽 / 名片 / B-01 …" autocomplete="off" aria-label="检索条目">
+        <button id="searchClear" type="button" aria-label="清空检索" hidden>×</button>
+      </div>
+    </div>
+
+    <p class="result" id="result"></p>
+    <div class="item-grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>没有匹配的条目，换个关键词试试。</p>
+  </section>
+
+  <section class="section palette" id="palette">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Colour</p>
+        <h2>标准色</h2>
+      </div>
+      <p class="section__note">智能蓝与矿大红构成主色，辅以灰、金、银；渐变只作背景，不用于标志。</p>
+    </div>
+    <div class="swatches">
+      <article class="swatch swatch--blue">
+        <div class="swatch__chip"></div>
+        <h3>智能蓝</h3>
+        <p class="swatch__en">Intelligent Blue</p>
+        <dl><dt>RGB</dt><dd>28 · 43 · 98</dd><dt>HEX</dt><dd>#1C2B62</dd><dt>CMYK</dt><dd>100 · 98 · 43 · 9</dd></dl>
+      </article>
+      <article class="swatch swatch--red">
+        <div class="swatch__chip"></div>
+        <h3>矿大红</h3>
+        <p class="swatch__en">CUMTB Red</p>
+        <dl><dt>RGB</dt><dd>153 · 51 · 51</dd><dt>HEX</dt><dd>#993333</dd><dt>CMYK</dt><dd>45 · 91 · 84 · 11</dd></dl>
+      </article>
+      <article class="swatch swatch--grey">
+        <div class="swatch__chip"></div>
+        <h3>灰</h3>
+        <p class="swatch__en">Grey</p>
+        <dl><dt>RGB</dt><dd>180 · 180 · 182</dd><dt>HEX</dt><dd>#BCBEC0</dd><dt>CMYK</dt><dd>0 · 0 · 0 · 30</dd></dl>
+      </article>
+      <article class="swatch swatch--gold">
+        <div class="swatch__chip"></div>
+        <h3>金</h3>
+        <p class="swatch__en">Gold</p>
+        <dl><dt>RGB</dt><dd>181 · 167 · 75</dd><dt>HEX</dt><dd>#B5984A</dd><dt>CMYK</dt><dd>37 · 40 · 79 · 0</dd></dl>
+      </article>
+      <article class="swatch swatch--silver">
+        <div class="swatch__chip"></div>
+        <h3>银</h3>
+        <p class="swatch__en">Silver</p>
+        <dl><dt>RGB</dt><dd>139 · 140 · 143</dd><dt>HEX</dt><dd>#8B8C8F</dd><dt>CMYK</dt><dd>52 · 43 · 39 · 0</dd></dl>
+      </article>
+      <article class="swatch swatch--grad">
+        <div class="swatch__chip"></div>
+        <h3>品牌渐变</h3>
+        <p class="swatch__en">Brand Gradient</p>
+        <dl><dt>起</dt><dd>#993333</dd><dt>止</dt><dd>#1C2B62</dd><dt>用途</dt><dd>背景 / 封面</dd></dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="section downloads" id="downloads">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Download</p>
+        <h2>下载</h2>
+      </div>
+      <p class="section__note">手册、图版与源文件。可直接下载的条目会标注体积，源文件体积较大，放在学院网盘。</p>
+    </div>
+    <div class="dl-grid" id="dlGrid"></div>
+  </section>
+  <section class="section about" id="about">
+    <div class="about__grid">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2>关于本手册</h2>
+        <p class="about__text">
+          本手册用于统一中国矿业大学（北京）人工智能学院在对外传播中的视觉表达。凡以学院名义发布的文件、宣传品、证书、环境导视与新媒体内容，均应按本手册执行。
+        </p>
+        <p class="about__text">
+          手册分基础形象系统与应用系统两部分，共 46 项规范。标志、标准字、标准色不得自行重绘、变形或改变比例；确需变通的场合，须经学院视觉形象管理部门确认。本网站为手册的在线版本，由学生会科技部维护。
+        </p>
+      </div>
+      <dl class="about__facts">
+        <div><dt>编制</dt><dd>人工智能学院学生会 · 科技部</dd></div>
+        <div><dt>版本</dt><dd>202401</dd></div>
+        <div><dt>更新</dt><dd>内容会不定期更新，以最新版为准</dd></div>
+        <div><dt>联系</dt><dd>15326506090</dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <img src="assets/img/brand/emblem.webp" alt="" width="46" height="46">
+    <p>© 2024 中国矿业大学（北京）人工智能学院<br><span>保留一切权利 · 未经书面许可不得复制或传播</span><br><span class="footer__note">本站由人工智能学院学生会科技部维护，内容以学院正式发布的手册为准</span></p>
+    <a href="#top" class="footer__top">回到顶部 ↑</a>
+  </div>
+</footer>
+
+<div class="backdrop" id="backdrop" hidden></div>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle">
+  <div class="drawer__bar">
+    <span class="drawer__no" id="drawerNo"></span>
+    <div class="drawer__nav">
+      <button id="prev" type="button" aria-label="上一个条目">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <button id="next" type="button" aria-label="下一个条目">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+      </button>
+      <button id="close" type="button" aria-label="关闭">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div class="drawer__body" id="drawerBody"></div>
+</aside>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

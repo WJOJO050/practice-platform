@@ -1,0 +1,17 @@
+# Cloudflare Workers 配置（静态资源 + API）
+name = "practice-platform"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# 静态资源：public/ 目录随 Worker 一起发布
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+# KV：账号、密钥、会话
+[[kv_namespaces]]
+binding = "PF"
+id = "70af8d52c9394230be8707c200ff8c4e"
+
+# PF_SECRET 不写在这里（仓库是公开的），请在控制台添加：
+#   Worker → Settings → Variables and Secrets → Add → Secret → PF_SECRET
